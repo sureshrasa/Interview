@@ -2,94 +2,103 @@ package uk.me.suriar.interview;
 
 import java.util.NoSuchElementException;
 
-public class DoublyLinkedList <T>{
-	private final Node nodes;
-	
-	public class Node {
-		Node prev;
-		Node next;
+public class DoublyLinkedList<T>
+{
+    private final Node nodes;
 
-		private T value;
+    public class Node
+    {
+	Node prev;
+	Node next;
 
-		public Node(final T value) {
-			this.value = value;
-			prev = next = this;
-		}
+	private T value;
 
-		public T getValue() {
-			return value;
-		}
-
-		public void setValue(final T value) {
-			this.value = value;
-		}
-
-		public void remove() {
-			prev.next = next;
-			next.prev = prev;
-			
-			next = prev = this;
-		}
-		
-		public void insertAfter(final Node node)
-		{
-			remove();
-			
-			next = node.next;
-			prev = node;
-			
-			next.prev = this;
-			node.next = this;
-		}
-		
-		public void insertBefore(final Node node)
-		{
-			remove();
-			
-			prev = node.prev;
-			next = node;
-			
-			prev.next = this;
-			node.prev = this;
-		}
-	}
-
-	public DoublyLinkedList()
+	public Node(final T value)
 	{
-		nodes = new Node(null);
+	    this.value = value;
+	    prev = next = this;
 	}
 
-	public boolean isEmpty() {
-		return nodes.prev == nodes;
-	}
-
-	public Node addFirst(final T value)
+	public T getValue()
 	{
-		Node result = new Node(value);
-		
-		result.insertAfter(nodes);
-		
-		return result;
+	    return value;
 	}
 
-	public Node addLast(final T value)
+	public void setValue(final T value)
 	{
-		Node result = new Node(value);
-		
-		result.insertBefore(nodes);
-		
-		return result;
+	    this.value = value;
 	}
 
-	public Node getFirst()
+	public void remove()
 	{
-		if (isEmpty()) throw new NoSuchElementException("DoublyLinkedList::getFirst");
-		return nodes.next;
+	    prev.next = next;
+	    next.prev = prev;
+
+	    next = prev = this;
 	}
 
-	public Node getLast()
+	public void insertAfter(final Node node)
 	{
-		if (isEmpty()) throw new NoSuchElementException("DoublyLinkedList::getLast");
-		return nodes.prev;
+	    remove();
+
+	    next = node.next;
+	    prev = node;
+
+	    next.prev = this;
+	    node.next = this;
 	}
+
+	public void insertBefore(final Node node)
+	{
+	    remove();
+
+	    prev = node.prev;
+	    next = node;
+
+	    prev.next = this;
+	    node.prev = this;
+	}
+    }
+
+    public DoublyLinkedList()
+    {
+	nodes = new Node(null);
+    }
+
+    public boolean isEmpty()
+    {
+	return nodes.prev == nodes;
+    }
+
+    public Node addFirst(final T value)
+    {
+	Node result = new Node(value);
+
+	result.insertAfter(nodes);
+
+	return result;
+    }
+
+    public Node addLast(final T value)
+    {
+	Node result = new Node(value);
+
+	result.insertBefore(nodes);
+
+	return result;
+    }
+
+    public Node getFirst()
+    {
+	if (isEmpty())
+	    throw new NoSuchElementException("DoublyLinkedList::getFirst");
+	return nodes.next;
+    }
+
+    public Node getLast()
+    {
+	if (isEmpty())
+	    throw new NoSuchElementException("DoublyLinkedList::getLast");
+	return nodes.prev;
+    }
 }

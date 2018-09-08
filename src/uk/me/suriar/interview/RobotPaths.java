@@ -14,60 +14,62 @@ import java.util.stream.Collectors;
 
 import javafx.util.Pair;
 
-public class RobotPaths {
-	final Map<Pair<Integer,Integer>,List<String>> cache = new HashMap<>();
+public class RobotPaths
+{
+    final Map<Pair<Integer, Integer>, List<String>> cache = new HashMap<>();
 
-	public List<String> paths(final int row, final int col,
-			final BiPredicate<Integer,Integer> isRestrictedSpace)
+    public List<String> paths(final int row, final int col, final BiPredicate<Integer, Integer> isRestrictedSpace)
+    {
+	return appendPath(1, 1, row, col, isRestrictedSpace);
+    }
+
+    private List<String> appendPath(final int row, final int col, final int lastRow, final int lastCol,
+	    final BiPredicate<Integer, Integer> isRestrictedSpace)
+    {
+	final Pair<Integer, Integer> currPoint = new Pair<Integer, Integer>(row, col);
+
+	final List<String> prevResult = cache.get(currPoint);
+	if (prevResult != null)
+	    return prevResult;
+
+	final String currPointDesc = addPoint(row, col);
+	final List<String> paths = new ArrayList<>();
+
+	if (row == lastRow && col == lastCol)
 	{
-		return appendPath(1, 1, row, col, isRestrictedSpace);
-	}
-
-	private List<String> appendPath(final int row, final int col, final int lastRow, final int lastCol,
-			final BiPredicate<Integer, Integer> isRestrictedSpace)
+	    paths.add(currPointDesc);
+	} else if (!isRestrictedSpace.test(row, col))
 	{
-		final Pair<Integer, Integer> currPoint = new Pair<Integer, Integer>(row,col);
-		
-		final List<String> prevResult = cache.get(currPoint);
-		if (prevResult != null) return prevResult;
-		
-		final String currPointDesc = addPoint(row, col);
-		final List<String> paths = new ArrayList<>();
-		
-		if (row == lastRow && col == lastCol)
+	    if (col < lastCol)
+	    {
+		final List<String> result = appendPath(row, col + 1, lastRow, lastCol, isRestrictedSpace);
+		if (!result.isEmpty())
 		{
-			paths.add(currPointDesc);
+		    paths.addAll(prefixPaths(currPointDesc, result));
 		}
-		else if (!isRestrictedSpace.test(row, col))
+	    }
+	    if (row < lastRow)
+	    {
+		final List<String> result = appendPath(row + 1, col, lastRow, lastCol, isRestrictedSpace);
+		if (!result.isEmpty())
 		{
-			if (col < lastCol)
-			{
-				final List<String> result = appendPath(row, col+1, lastRow, lastCol, isRestrictedSpace);
-				if (!result.isEmpty())
-				{
-					paths.addAll(prefixPaths(currPointDesc, result));
-				}
-			}
-			if (row < lastRow)
-			{
-				final List<String> result = appendPath(row+1, col, lastRow, lastCol, isRestrictedSpace);
-				if (!result.isEmpty())
-				{
-					paths.addAll(prefixPaths(currPointDesc, result));
-				}
-			}
+		    paths.addAll(prefixPaths(currPointDesc, result));
 		}
-		
-		cache.put(currPoint, paths);
-		
-		return paths;
+	    }
 	}
 
-	private List<String> prefixPaths(String currPoint, List<String> paths) {
-		return paths.stream().map((s)->currPoint+s).collect(Collectors.toList());
-	}
+	cache.put(currPoint, paths);
 
-	private String addPoint(int row, int col) {
-		return String.format("[%s,%s]", row, col);
-	}
+	return paths;
+    }
+
+    private List<String> prefixPaths(String currPoint, List<String> paths)
+    {
+	return paths.stream().map((s) -> currPoint + s).collect(Collectors.toList());
+    }
+
+    private String addPoint(int row, int col)
+    {
+	return String.format("[%s,%s]", row, col);
+    }
 }

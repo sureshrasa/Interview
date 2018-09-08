@@ -1,7 +1,8 @@
 package uk.me.suriar.interview;
 
-public interface MissingNumber {
+public interface MissingNumber
+{
 
-	int detect(NumberArray numberArray);
+    int detect(NumberArray numberArray);
 
 }

@@ -3,39 +3,49 @@ package uk.me.suriar.interview;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class Node
+{
 
-	private final String id;
-	
-	private final List<Edge> edges = new ArrayList<Edge>();
+    private final String id;
 
-	public Node(final String id) {
-		this.id = id;
-	}
-	
-	public boolean equals(final Object other){
-		if (other == this) return true;
-		
-		if (other == null) return false;
-		
-		if (!(other instanceof Node)) return false;
-		
-		return ((Node)other).id.equals(this.id);
-	}
-	
-	public int hashcode(){
-		return id.hashCode();
-	}
+    private final List<Edge> edges = new ArrayList<Edge>();
 
-	public void addEdge(final Edge edge) {
-		edges.add(edge);
-	}
+    public Node(final String id)
+    {
+	this.id = id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public boolean equals(final Object other)
+    {
+	if (other == this)
+	    return true;
 
-	public List<Edge> getEdges() {
-		return edges;
-	}
+	if (other == null)
+	    return false;
+
+	if (!(other instanceof Node))
+	    return false;
+
+	return ((Node) other).id.equals(this.id);
+    }
+
+    public int hashcode()
+    {
+	return id.hashCode();
+    }
+
+    public void addEdge(final Edge edge)
+    {
+	edges.add(edge);
+    }
+
+    public String getId()
+    {
+	return id;
+    }
+
+    public List<Edge> getEdges()
+    {
+	return edges;
+    }
 }

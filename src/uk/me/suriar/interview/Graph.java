@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Graph {
-	private final HashMap<String,Node> nodes = new HashMap<>();
+public class Graph
+{
+    private final HashMap<String, Node> nodes = new HashMap<>();
 
-	public void addNode(Node...nodes) {
-		Arrays.stream(nodes).collect(Collectors.toMap(Node::getId, Function.identity(), (a,b)-> a, () -> this.nodes));
-	}
+    public void addNode(Node... nodes)
+    {
+	Arrays.stream(nodes).collect(Collectors.toMap(Node::getId, Function.identity(), (a, b) -> a, () -> this.nodes));
+    }
 }
