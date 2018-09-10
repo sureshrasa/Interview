@@ -7,7 +7,7 @@ import java.util.Queue;
 public class ContiniousMedian
 {
     final Queue<Double> minHeap = new PriorityQueue<>();
-    final Queue<Double> maxHeap = new PriorityQueue<>(Comparator.<Double>reverseOrder());
+    final Queue<Double> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
     
     public Double getMedian()
     {
