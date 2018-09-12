@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class Tower
 {
@@ -38,5 +37,4 @@ public class Tower
     {
 	pole.addFirst(ring);
     }
-
 }

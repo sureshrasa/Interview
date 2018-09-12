@@ -20,9 +20,6 @@ public class EightQueens
     private Collection<String> generate(final Deque<String> currentLayout, final int totalQueens, final int firstRow,
 	    final int lastRow, final int lastCol, final BiPredicate<Integer, Integer> isValid)
     {
-	// System.out.println(String.format("generate(%s) with %s", totalQueens,
-	// points.size()));
-
 	final Collection<String> result = new ArrayList<>();
 
 	if (totalQueens <= 0)

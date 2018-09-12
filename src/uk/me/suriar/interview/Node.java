@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Node
 {
-
     private final String id;
 
     private final List<Edge> edges = new ArrayList<Edge>();

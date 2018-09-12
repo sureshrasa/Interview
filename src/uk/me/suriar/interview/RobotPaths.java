@@ -28,39 +28,35 @@ public class RobotPaths
     {
 	final Pair<Integer, Integer> currPoint = new Pair<Integer, Integer>(row, col);
 
-	final List<String> prevResult = cache.get(currPoint);
-	if (prevResult != null)
-	    return prevResult;
+	return cache.computeIfAbsent(currPoint, k -> {
+	    final String currPointDesc = addPoint(row, col);
+	    final List<String> paths = new ArrayList<>();
 
-	final String currPointDesc = addPoint(row, col);
-	final List<String> paths = new ArrayList<>();
-
-	if (row == lastRow && col == lastCol)
-	{
-	    paths.add(currPointDesc);
-	} else if (!isRestrictedSpace.test(row, col))
-	{
-	    if (col < lastCol)
+	    if (row == lastRow && col == lastCol)
 	    {
-		final List<String> result = appendPath(row, col + 1, lastRow, lastCol, isRestrictedSpace);
-		if (!result.isEmpty())
+		paths.add(currPointDesc);
+	    }
+	    else if (!isRestrictedSpace.test(row, col))
+	    {
+		if (col < lastCol)
 		{
-		    paths.addAll(prefixPaths(currPointDesc, result));
+		    final List<String> result = appendPath(row, col + 1, lastRow, lastCol, isRestrictedSpace);
+		    if (!result.isEmpty())
+		    {
+			paths.addAll(prefixPaths(currPointDesc, result));
+		    }
+		}
+		if (row < lastRow)
+		{
+		    final List<String> result = appendPath(row + 1, col, lastRow, lastCol, isRestrictedSpace);
+		    if (!result.isEmpty())
+		    {
+			paths.addAll(prefixPaths(currPointDesc, result));
+		    }
 		}
 	    }
-	    if (row < lastRow)
-	    {
-		final List<String> result = appendPath(row + 1, col, lastRow, lastCol, isRestrictedSpace);
-		if (!result.isEmpty())
-		{
-		    paths.addAll(prefixPaths(currPointDesc, result));
-		}
-	    }
-	}
-
-	cache.put(currPoint, paths);
-
-	return paths;
+	    return paths;
+	});
     }
 
     private List<String> prefixPaths(String currPoint, List<String> paths)

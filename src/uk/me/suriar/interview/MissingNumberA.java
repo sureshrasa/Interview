@@ -2,18 +2,10 @@ package uk.me.suriar.interview;
 
 public class MissingNumberA implements MissingNumber
 {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see uk.me.suriar.interview.MissingNumber#detect(uk.me.suriar.interview.
-     * NumberArray)
-     */
     @Override
     public int detect(final NumberArray numberArray)
     {
 	final int n = numberArray.getSize();
-	System.out.println(String.format("detecting %s -----", n));
 
 	final int numBits = numberArray.getNumBits();
 

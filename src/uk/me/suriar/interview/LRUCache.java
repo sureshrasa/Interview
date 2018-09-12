@@ -2,7 +2,6 @@ package uk.me.suriar.interview;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import javafx.util.Pair;
 

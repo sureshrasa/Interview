@@ -12,7 +12,6 @@ public class Dijkstra
 
     public String findShortestPath(final Node start, final Node end)
     {
-
 	route.put(start, new Edge(start, 0));
 
 	addPaths(start, end);
@@ -55,10 +54,8 @@ public class Dijkstra
 
 	    if (bestPath == null || bestPath.getWeight() > newWeight)
 	    {
-		System.out.println(String.format("Best weight so far for %s = %s", currNode.getId(), newWeight));
-		/* if (lastPath == null || newWeight < lastPath.getWeight()) */ {
-		    System.out.println(
-			    String.format("Node %s may have better route to %s", currNode.getId(), end.getId()));
+		if (lastPath == null || newWeight < lastPath.getWeight())
+		{
 		    route.put(currNode, new Edge(node, newWeight));
 		    if (bestPath == null)
 			nextNodes.add(currNode);
@@ -66,5 +63,4 @@ public class Dijkstra
 	    }
 	});
     }
-
 }

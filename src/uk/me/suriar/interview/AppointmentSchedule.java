@@ -25,8 +25,8 @@ public class AppointmentSchedule
 	public Schedule(final Integer duration, final Schedule afterStart)
 	{
 	    totalDuration = afterStart.getTotalDuration() + duration;
-	    appointments = Stream.concat(Stream.of(duration),
-		    afterStart.getAppointments().stream()).collect(Collectors.toList());
+	    appointments = Stream.concat(Stream.of(duration), afterStart.getAppointments().stream())
+		    .collect(Collectors.toList());
 	}
 
 	public List<Integer> getAppointments()
@@ -48,22 +48,18 @@ public class AppointmentSchedule
 
     private Schedule pickFromRange(List<Integer> appointments, final int start)
     {
-	if (start >= appointments.size()) return new Schedule(0);
-	
-	final Schedule cachedResult = cache.get(start);
-	if (cachedResult != null) return cachedResult;
-	
-	final Schedule afterStart = pickFromRange(appointments, start+2);
-	final Schedule skippingStart = pickFromRange(appointments, start+1);
-	
-	final Schedule result =
-		(afterStart.getTotalDuration() + appointments.get(start) > skippingStart.getTotalDuration())
-		? new Schedule(appointments.get(start), afterStart)
-		: skippingStart;
-		
-	cache.put(start, result);
-	
-	return result;
+	if (start >= appointments.size())
+	    return new Schedule(0);
+
+	return cache.computeIfAbsent(start, k -> {
+	    final Schedule afterStart = pickFromRange(appointments, start + 2);
+	    final Schedule skippingStart = pickFromRange(appointments, start + 1);
+
+	    return (afterStart.getTotalDuration() + appointments.get(start) > skippingStart.getTotalDuration())
+		    ? new Schedule(appointments.get(start), afterStart)
+		    : skippingStart;
+	});
+
     }
 
 }

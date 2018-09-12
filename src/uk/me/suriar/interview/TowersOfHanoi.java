@@ -17,8 +17,6 @@ public class TowersOfHanoi
     private static void move(final Steps steps, final Tower tower1, final int height1, final Tower tower2,
 	    final Tower tower3)
     {
-	// System.out.println(String.format("move:%s%s%s, height= %s",
-	// tower1,tower2,tower3,height1));
 	if (height1 == 0)
 	    return;
 

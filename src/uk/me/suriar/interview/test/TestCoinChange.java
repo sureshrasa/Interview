@@ -55,6 +55,6 @@ public class TestCoinChange
     @Test
     public void test30Cents()
     {
-	assertEquals(13, new CoinChange().compute(1000));
+	assertEquals(18, new CoinChange().compute(30));
     }
 }

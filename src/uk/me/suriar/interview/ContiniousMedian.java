@@ -16,8 +16,8 @@ public class ContiniousMedian
 	    if (!maxHeap.isEmpty())
 	    {
 		if (minHeap.size() > maxHeap.size()) return minHeap.peek();
-		if (minHeap.size() == maxHeap.size()) return (minHeap.peek()+maxHeap.peek())/2;
-		return maxHeap.peek();
+		if (minHeap.size() < maxHeap.size()) return maxHeap.peek();
+		return (minHeap.peek()+maxHeap.peek())/2;
 	    }
 	    else
 	    {

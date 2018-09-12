@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collector;
 
-public class PermGen
+public class StringPerm
 {
     public Collection<String> generate(final String seq)
     {

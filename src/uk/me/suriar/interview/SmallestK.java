@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class SmallestK
 {
-
     public int find(final int[] nums, final int k)
     {
 	return findInRange(nums, 0, nums.length-1, k);

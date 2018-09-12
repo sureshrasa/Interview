@@ -8,37 +8,37 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import uk.me.suriar.interview.PermGen;
+import uk.me.suriar.interview.StringPerm;
 
 public class TestStringPerm
 {
-    @Test
+    //@Test
     public void testNull()
     {
-	assertNull(new PermGen().generate(null));
+	assertNull(new StringPerm().generate(null));
     }
 
-    @Test
+    //@Test
     public void testEmpty()
     {
 	final String[] expected = {};
-	assertEquals(expected, new PermGen().generate(""));
+	assertEquals(expected, new StringPerm().generate(""));
     }
 
-    @Test
+    //@Test
     public void testSingle()
     {
 	final String[] expected =
 	{ "A" };
-	assertEquals(expected, new PermGen().generate("A"));
+	assertEquals(expected, new StringPerm().generate("A"));
     }
 
-    @Test
+    //@Test
     public void testTwo()
     {
 	final String[] expected =
 	{ "AB", "BA" };
-	assertEquals(expected, new PermGen().generate("AB"));
+	assertEquals(expected, new StringPerm().generate("AB"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestStringPerm
     {
 	final String[] expected =
 	{ "ABC", "BAC", "BCA", "ACB", "CAB", "CBA" };
-	assertEquals(expected, new PermGen().generate("ABC"));
+	assertEquals(expected, new StringPerm().generate("ABCDEFGHIJ"));
     }
 
     private void assertEquals(String[] expected, Collection<String> generated)
@@ -57,11 +57,11 @@ public class TestStringPerm
 	assertArrayEquals(expected, actual);
     }
 
-    @Test
+    //@Test
     public void testDups()
     {
 	final String[] expected =
 	{ "ABA", "AAB", "BAA", };
-	assertEquals(expected, new PermGen().generate("ABA"));
+	assertEquals(expected, new StringPerm().generate("ABA"));
     }
 }

@@ -29,22 +29,19 @@ public class CoinChange
 	    return 1;
 
 	final String key = getKey(n, coinValue, coins);
-	final Integer cachedValue = cache.get(key);
-	if (cachedValue != null)
-	    return cachedValue;
-
-	// System.out.println(String.format("compute(%s,%s,%s)", n, coinValue, coins));
-	int result = computePerm(n - coinValue, coinValue, coins);
-
-	if (!coins.isEmpty())
+	return cache.computeIfAbsent(key, k ->
 	{
-	    final int nextCoinValue = coins.removeFirst();
-	    result += computePerm(n, nextCoinValue, coins);
-	    coins.addFirst(nextCoinValue);
-	}
+	    int result = computePerm(n - coinValue, coinValue, coins);
 
-	cache.put(key, result);
-	return result;
+	    if (!coins.isEmpty())
+	    {
+		final int nextCoinValue = coins.removeFirst();
+		result += computePerm(n, nextCoinValue, coins);
+		coins.addFirst(nextCoinValue);
+	    }
+
+	    return result;
+	});
     }
 
     private String getKey(final int n, final int coinValue, final Deque<Integer> coins)

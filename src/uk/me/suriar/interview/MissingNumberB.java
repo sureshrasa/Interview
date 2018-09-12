@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 public class MissingNumberB implements MissingNumber
 {
-
     @Override
     public int detect(NumberArray numberArray)
     {
@@ -28,12 +27,10 @@ public class MissingNumberB implements MissingNumber
 	// even: LSB(0) == LSB(1) + 1
 	if (zeros.size() > ones.size())
 	{
-	    System.out.println(String.format("Bit %s is missing 1", bitIndex));
 	    // 1 is missing
 	    return (findMissing(ones.stream(), bitIndex + 1, numBits) << 1) | 1;
 	} else
 	{
-	    System.out.println(String.format("Bit %s is missing 0", bitIndex));
 	    return (findMissing(zeros.stream(), bitIndex + 1, numBits) << 1) | 0;
 	}
     }

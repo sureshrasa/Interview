@@ -38,7 +38,6 @@ public class LetterNumberSequence
 	    if (diffPos == null || diffPos < i)
 	    {
 		diffMap.put(currDiff, i);
-		System.out.println(String.format("Adding diff map %s -> %s", currDiff, i));
 	    }
 	}
 	
@@ -54,12 +53,10 @@ public class LetterNumberSequence
 		seqStart = i;
 		seqEnd = diffPos;
 		seqLen = seqEnd - seqStart + 1;
-		System.out.println(String.format("Found sequence [%s,%s]", seqStart, seqEnd));
 	    }
 	    if (seqLen > s.length() - i) break;
 	}
 	
 	return s.substring(seqStart, seqEnd+1);
     }
-
 }
