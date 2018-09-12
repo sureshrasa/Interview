@@ -7,8 +7,8 @@ public class LangtonAnt
 {
     public static class Point implements Comparable<Point>
     {
-	final int x;
-	final int y;
+	private final int x;
+	private final int y;
 
 	public static Point xy(final int x, final int y)
 	{
@@ -67,13 +67,13 @@ public class LangtonAnt
     {
 	NORTH(0), EAST(1), SOUTH(2), WEST(3);
 
-	private int ordinal;
+	private final int ordinal;
 
 	private static final Direction[] ordinalMap = { NORTH, EAST, SOUTH, WEST };
 
 	Direction(final int ordinal)
 	{
-	    this.ordinal = ordinal();
+	    this.ordinal = ordinal;
 	}
 
 	Direction rotateClockwise()
