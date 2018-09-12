@@ -21,7 +21,7 @@ public class AppointmentSchedule
 	    return new Schedule(totalDuration, new ArrayList<>());
 	}
 
-	public static Schedule concat(final Integer duration, final Schedule rest)
+	public static Schedule concat(final int duration, final Schedule rest)
 	{
 	    return new Schedule(rest.getTotalDuration() + duration,
 		    Stream.concat(Stream.of(duration), rest.getAppointments().stream()).collect(Collectors.toList()));
