@@ -19,13 +19,10 @@ public class Node
 	if (other == this)
 	    return true;
 
-	if (other == null)
-	    return false;
-
 	if (!(other instanceof Node))
 	    return false;
 
-	return ((Node) other).id.equals(this.id);
+	return ((Node) other).id.equals(id);
     }
 
     public int hashcode()

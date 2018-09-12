@@ -10,7 +10,12 @@ public class LangtonAnt
 	final int x;
 	final int y;
 
-	public Point(final int x, final int y)
+	public static Point xy(final int x, final int y)
+	{
+	    return new Point(x, y);
+	}
+
+	private Point(final int x, final int y)
 	{
 	    this.x = x;
 	    this.y = y;
@@ -63,8 +68,8 @@ public class LangtonAnt
 	NORTH(0), EAST(1), SOUTH(2), WEST(3);
 
 	private int ordinal;
-	private static final Direction[] ordinalMap =
-	{ NORTH, EAST, SOUTH, WEST };
+
+	private static final Direction[] ordinalMap = { NORTH, EAST, SOUTH, WEST };
 
 	Direction(final int ordinal)
 	{
@@ -85,7 +90,7 @@ public class LangtonAnt
     private final Set<Point> blackSquares = new TreeSet<>();
 
     private Direction currDirection = Direction.WEST;
-    private Point currPos = new Point(0, 0);
+    private Point currPos = Point.xy(0, 0);
 
     private Point topLeft = currPos;
     private Point botRight = currPos;
@@ -123,7 +128,7 @@ public class LangtonAnt
 	{
 	    for (int x = topLeft.x; x <= botRight.x; ++x)
 	    {
-		final Point p = new Point(x, y);
+		final Point p = Point.xy(x, y);
 		if (blackSquares.contains(p))
 		{
 		    System.out.print(p.equals(currPos) ? "O" : "X");
@@ -155,27 +160,27 @@ public class LangtonAnt
 	switch (currDirection)
 	{
 	case NORTH:
-	    currPos = new Point(currPos.x, currPos.y + 1);
+	    currPos = Point.xy(currPos.x, currPos.y + 1);
 	    if (topLeft.y < currPos.y)
-		topLeft = new Point(topLeft.x, currPos.y);
+		topLeft = Point.xy(topLeft.x, currPos.y);
 	    break;
 
 	case EAST:
-	    currPos = new Point(currPos.x + 1, currPos.y);
+	    currPos = Point.xy(currPos.x + 1, currPos.y);
 	    if (botRight.x < currPos.x)
-		botRight = new Point(currPos.x, botRight.y);
+		botRight = Point.xy(currPos.x, botRight.y);
 	    break;
 
 	case SOUTH:
-	    currPos = new Point(currPos.x, currPos.y - 1);
+	    currPos = Point.xy(currPos.x, currPos.y - 1);
 	    if (botRight.y > currPos.y)
-		botRight = new Point(botRight.x, currPos.y);
+		botRight = Point.xy(botRight.x, currPos.y);
 	    break;
 
 	case WEST:
-	    currPos = new Point(currPos.x - 1, currPos.y);
+	    currPos = Point.xy(currPos.x - 1, currPos.y);
 	    if (topLeft.x > currPos.x)
-		topLeft = new Point(currPos.x, topLeft.y);
+		topLeft = Point.xy(currPos.x, topLeft.y);
 	    break;
 	}
     }
