@@ -34,7 +34,6 @@ public class BoxStacker
 	if (cache[from] > 0)
 	    return cache[from];
 
-	// System.out.println(String.format("stackFitting(%s)", from));
 	final Box topBox = boxes[from];
 
 	for (int i = from + 1; i < boxes.length; ++i)

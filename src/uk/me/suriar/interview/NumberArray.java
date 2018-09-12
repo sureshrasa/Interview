@@ -29,7 +29,6 @@ public class NumberArray
 	    n /= 2;
 	    ++result;
 	}
-	System.out.println(String.format("num bits = %s", result));
 	return result;
     }
 

@@ -2,7 +2,6 @@ package uk.me.suriar.interview;
 
 public class ListySearch
 {
-
     public Object find(final int value, final Listy listy)
     {
 	if (listy.getValue(0) == -1)
@@ -14,7 +13,6 @@ public class ListySearch
     private int findInRange(final int value, final Listy listy, final int lowerBound, final int testPos,
 	    final int upperBound)
     {
-	System.out.println(String.format("find [%s, %s, %s]", lowerBound, testPos, upperBound));
 	if (testPos < lowerBound | testPos > upperBound)
 	    return -1;
 

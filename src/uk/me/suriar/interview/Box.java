@@ -6,7 +6,12 @@ public class Box
     private final int height;
     private final int depth;
 
-    public Box(int w, int h, int d)
+    public static Box ofWidthHeightDepth(int w, int h, int d)
+    {
+	return new Box(w,h,d);
+    }
+    
+    private Box(int w, int h, int d)
     {
 	width = w;
 	height = h;

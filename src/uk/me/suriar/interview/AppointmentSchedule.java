@@ -16,17 +16,21 @@ public class AppointmentSchedule
 	private final int totalDuration;
 	private final List<Integer> appointments;
 
-	public Schedule(int totalDuration)
+	public static Schedule oneOf(final int totalDuration)
 	{
-	    this.totalDuration = totalDuration;
-	    this.appointments = new ArrayList<>();
+	    return new Schedule(totalDuration, new ArrayList<>());
 	}
 
-	public Schedule(final Integer duration, final Schedule afterStart)
+	public static Schedule concat(final Integer duration, final Schedule rest)
 	{
-	    totalDuration = afterStart.getTotalDuration() + duration;
-	    appointments = Stream.concat(Stream.of(duration), afterStart.getAppointments().stream())
-		    .collect(Collectors.toList());
+	    return new Schedule(rest.getTotalDuration() + duration,
+		    Stream.concat(Stream.of(duration), rest.getAppointments().stream()).collect(Collectors.toList()));
+	}
+
+	private Schedule(final int totalDuration, final List<Integer> appointments)
+	{
+	    this.totalDuration = totalDuration;
+	    this.appointments = appointments;
 	}
 
 	public List<Integer> getAppointments()
@@ -38,7 +42,6 @@ public class AppointmentSchedule
 	{
 	    return totalDuration;
 	}
-
     }
 
     public List<Integer> pick(final List<Integer> appointments)
@@ -48,18 +51,15 @@ public class AppointmentSchedule
 
     private Schedule pickFromRange(List<Integer> appointments, final int start)
     {
-	if (start >= appointments.size())
-	    return new Schedule(0);
+	if (start >= appointments.size()) return Schedule.oneOf(0);
 
 	return cache.computeIfAbsent(start, k -> {
-	    final Schedule afterStart = pickFromRange(appointments, start + 2);
+	    final Schedule includingStart = pickFromRange(appointments, start + 2);
 	    final Schedule skippingStart = pickFromRange(appointments, start + 1);
 
-	    return (afterStart.getTotalDuration() + appointments.get(start) > skippingStart.getTotalDuration())
-		    ? new Schedule(appointments.get(start), afterStart)
+	    return (includingStart.getTotalDuration() + appointments.get(start) > skippingStart.getTotalDuration())
+		    ? Schedule.concat(appointments.get(start), includingStart)
 		    : skippingStart;
 	});
-
     }
-
 }

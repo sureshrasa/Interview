@@ -8,7 +8,7 @@ public class TowersOfHanoi
 {
     public static String move(final Tower tower1, final Tower tower2, final Tower tower3)
     {
-	final Steps steps = new Steps(tower1, tower2, tower3);
+	final Steps steps = Steps.of(tower1, tower2, tower3);
 	steps.addStep();
 	move(steps, tower1, tower1.height(), tower2, tower3);
 	return steps.toString();
@@ -36,7 +36,12 @@ public class TowersOfHanoi
 	final Tower tower2;
 	final Tower tower3;
 
-	Steps(final Tower tower1, final Tower tower2, final Tower tower3)
+	public static Steps of(final Tower tower1, final Tower tower2, final Tower tower3)
+	{
+	    return new Steps(tower1, tower2, tower3);
+	}
+	
+	private Steps(final Tower tower1, final Tower tower2, final Tower tower3)
 	{
 	    this.tower1 = tower1;
 	    this.tower2 = tower2;
@@ -46,7 +51,6 @@ public class TowersOfHanoi
 	private void addStep()
 	{
 	    final String nextStep = String.format("{%s%s%s}", tower1, tower2, tower3);
-	    System.out.println(nextStep);
 	    steps.add(nextStep);
 	}
 
