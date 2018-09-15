@@ -36,7 +36,7 @@ public class TestRobotPaths
     public void test3by3PathAvoidCentre()
     {
 	assertEquals("{[1,1][1,2][1,3][2,3][3,3]}{[1,1][2,1][3,1][3,2][3,3]}",
-		buildString(new RobotPaths().paths(10, 10, (r, c) -> (r == 2 && c == 2))));
+		buildString(new RobotPaths().paths(3, 3, (r, c) -> (r == 2 && c == 2))));
     }
 
     private String buildString(final List<String> paths)

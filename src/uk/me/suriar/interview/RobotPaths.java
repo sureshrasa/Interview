@@ -1,15 +1,10 @@
 package uk.me.suriar.interview;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.function.BiPredicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javafx.util.Pair;
@@ -29,7 +24,7 @@ public class RobotPaths
 	final Pair<Integer, Integer> currPoint = new Pair<Integer, Integer>(row, col);
 
 	return cache.computeIfAbsent(currPoint, k -> {
-	    final String currPointDesc = addPoint(row, col);
+	    final String currPointDesc = buildPoint(row, col);
 	    final List<String> paths = new ArrayList<>();
 
 	    if (row == lastRow && col == lastCol)
@@ -61,10 +56,10 @@ public class RobotPaths
 
     private List<String> prefixPaths(String currPoint, List<String> paths)
     {
-	return paths.stream().map((s) -> currPoint + s).collect(Collectors.toList());
+	return paths.stream().map(s -> currPoint + s).collect(Collectors.toList());
     }
 
-    private String addPoint(int row, int col)
+    private String buildPoint(int row, int col)
     {
 	return String.format("[%s,%s]", row, col);
     }
