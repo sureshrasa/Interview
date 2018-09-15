@@ -1,14 +1,10 @@
 package uk.me.suriar.interview;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CircusTower
 {
-    private final Map<Person, Integer> cache = new HashMap<>();
-
     public int longestTower(final List<Person> persons)
     {
 	persons.sort(Comparator.comparing(Person::getWeight).reversed());
@@ -19,28 +15,32 @@ public class CircusTower
     {
 	if (persons.isEmpty())
 	    return 0;
+	
+	final int[] tallestTowers = new int[persons.size()];
+	int maxHeight = 0;
+	
+	for (int i = 0; i < persons.size(); ++i)
+	{
+	    tallestTowers[i] = findTallestFittingTower(persons, tallestTowers, i);
+	    maxHeight = Math.max(maxHeight, tallestTowers[i]);
+	}
 
-	final Person basePerson = persons.get(0);
-	final List<Person> subList = persons.subList(1, persons.size());
-	return Math.max(longestSubTowerForPerson(basePerson, subList), longestSubTower(subList));
+	return maxHeight;
     }
 
-    private int longestSubTowerForPerson(final Person person, final List<Person> persons)
+    private int findTallestFittingTower(List<Person> persons, int[] tallestTowers, final int personPos)
     {
-	return cache.computeIfAbsent(person, k -> {
-	    int maxHeight = 0;
-
-	    for (int i = 0; i < persons.size(); ++i)
+	final int heightLimit = persons.get(personPos).getHeight();
+	
+	int maxTowerHeight = 0;
+	for (int i = 0; i <= personPos; ++i)
+	{
+	    final Person p = persons.get(i);
+	    if (p.getHeight() >= heightLimit)
 	    {
-		final Person p = persons.get(i);
-		if (p.isShorterThan(person))
-		{
-		    maxHeight = Math.max(maxHeight,
-			    longestSubTowerForPerson(p, persons.subList(i + 1, persons.size())));
-		}
+		maxTowerHeight = Math.max(maxTowerHeight, tallestTowers[i]);
 	    }
-
-	    return maxHeight + 1;
-	});
+	}
+	return maxTowerHeight + 1;
     }
 }
