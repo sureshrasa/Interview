@@ -46,5 +46,4 @@ public class CardShuffler
 
 	return cards;
     }
-
 }

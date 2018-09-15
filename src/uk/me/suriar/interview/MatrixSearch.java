@@ -21,9 +21,7 @@ public class MatrixSearch
 	if (rowLow > rowHigh || colLow > colHigh)
 	    return null;
 
-	if (matrix[rowHigh][colHigh] < value)
-	    return null;
-	if (matrix[rowLow][colLow] > value)
+	if (matrix[rowHigh][colHigh] < value || matrix[rowLow][colLow] > value)
 	    return null;
 
 	if (rowLow == rowHigh && colLow == colHigh)

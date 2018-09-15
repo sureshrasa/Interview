@@ -1,12 +1,13 @@
 package uk.me.suriar.interview;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class BoxStacker
 {
     public int stack(final List<Box> list)
     {
-	list.sort((a, b) -> -Integer.compare(a.getHeight(), b.getHeight()));
+	list.sort(Comparator.comparing(Box::getHeight).reversed());
 
 	return stackFrom(list.toArray(new Box[] {}));
     }
@@ -52,5 +53,4 @@ public class BoxStacker
     {
 	return box.getDepth() < topBox.getDepth() && box.getWidth() < topBox.getWidth();
     }
-
 }

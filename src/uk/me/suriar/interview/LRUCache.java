@@ -33,7 +33,8 @@ public class LRUCache<K, V>
 	if (prevNode != null)
 	{
 	    prevNode.setValue(new Pair<>(key, value));
-	} else
+	}
+	else
 	{
 	    map.put(key, values.addFirst(new Pair<>(key, value)));
 	    if (map.size() > capacity)
