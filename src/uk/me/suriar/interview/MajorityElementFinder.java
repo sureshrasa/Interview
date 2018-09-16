@@ -9,42 +9,45 @@ public class MajorityElementFinder
 
     public int find(final int[] elems)
     {
-	logger.info(() -> String.format("frequency search %s", Arrays.toString(elems)));
+	logger.info(() -> String.format("find %s", Arrays.toString(elems)));
+	final int candidate = findCandidate(elems);
 	
-	if (elems.length == 0) return -1;
-	if (elems.length == 1) return elems[0];
-	
-	final int limit = elems.length/2+1;
-	final int last = elems.length-1;
-	
-	
-	for (int i = 0; i < limit;)
+	return validateMajority(candidate, elems);
+    }
+    
+    private int findCandidate(final int[] elems)
+    {
+	int candidate = 0;
+	int frequency = 0;
+	for (int n : elems)
 	{
-	    final int curr = elems[i];
-	    final int nextStart = i+1;
-	    logger.info(() -> String.format("frequency search %s: %s:%s", curr, nextStart, last));
-	    
-	    int next = nextStart;
-	    int frequency = 1;
-	    for (int j = i+1; j <= last; ++j)
+	    if (frequency == 0)
 	    {
-		if (elems[j] == curr)
-		{
-		    ++frequency;
-		    if (frequency >= limit) return curr;
-		    swap(elems, next, j);
-		    ++next;
-		}
+		candidate = n;
+		++frequency;
 	    }
-	    i = next;
+	    else if (n == candidate)
+	    {
+		++frequency;
+	    }
+	    else
+	    {
+		--frequency;
+	    }
+	}
+	
+	return candidate;
+    }
+    
+    private int validateMajority(final int curr, final int[] elems)
+    {
+	final int limit = elems.length/2+1;
+	int frequency = 0;
+	for (int i = 0; i < elems.length; ++i)
+	{
+	    if (elems[i] == curr) ++frequency;
+	    if (frequency >= limit) return curr;
 	}
 	return -1;
-    }
-
-    private void swap(int[] elems, int from, int to)
-    {
-	final int temp = elems[from];
-	elems[from] = elems[to];
-	elems[to] = temp;
     }
 }

@@ -7,13 +7,11 @@ import java.util.logging.Level;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.media.jfxmedia.logging.Logger;
-
 import uk.me.suriar.interview.MajorityElementFinder;
 
 public class TestMajorityElementFinder
 {
-    //@Before
+    @Before
     public void setup()
     {
 	java.util.logging.Logger.getLogger(MajorityElementFinder.class.getName()).setLevel(Level.WARNING);
@@ -58,7 +56,12 @@ public class TestMajorityElementFinder
     @Test
     public void testManyPresentLater()
     {
-	java.util.logging.Logger.getLogger(MajorityElementFinder.class.getName()).setLevel(Level.INFO);
 	assertEquals(2, new MajorityElementFinder().find(new int[] {9, 3, 1, 5, 2, 2, 2, 2, 2}));
+    }
+    
+    @Test
+    public void testAbsentDistinct()
+    {
+	assertEquals(-1, new MajorityElementFinder().find(new int[] {9, 3, 1, 5, 2, 7, 4, 6, 8}));
     }
 }
