@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import uk.me.suriar.interview.BiNode;
 import uk.me.suriar.interview.DoublyLinkedList;
 
 public class TestDoublyLinkedList
@@ -33,7 +34,7 @@ public class TestDoublyLinkedList
     {
 	final DoublyLinkedList<Integer> list = new DoublyLinkedList<Integer>();
 
-	final DoublyLinkedList<Integer>.Node node = list.addFirst(Integer.valueOf(3));
+	final BiNode<Integer> node = list.addFirst(Integer.valueOf(3));
 
 	assertNotNull(node);
 	assertEquals(Integer.valueOf(3), node.getValue());
@@ -51,7 +52,7 @@ public class TestDoublyLinkedList
     {
 	final DoublyLinkedList<Integer> list = new DoublyLinkedList<Integer>();
 
-	final DoublyLinkedList<Integer>.Node node = list.addLast(Integer.valueOf(3));
+	final BiNode<Integer> node = list.addLast(Integer.valueOf(3));
 
 	assertNotNull(node);
 	assertEquals(Integer.valueOf(3), node.getValue());
@@ -69,8 +70,8 @@ public class TestDoublyLinkedList
     {
 	final DoublyLinkedList<Integer> list = new DoublyLinkedList<Integer>();
 
-	final DoublyLinkedList<Integer>.Node node1 = list.addFirst(Integer.valueOf(3));
-	final DoublyLinkedList<Integer>.Node node2 = list.addFirst(Integer.valueOf(4));
+	final BiNode<Integer> node1 = list.addFirst(Integer.valueOf(3));
+	final BiNode<Integer> node2 = list.addFirst(Integer.valueOf(4));
 
 	assertNotNull(node1);
 	assertNotNull(node2);
@@ -102,8 +103,8 @@ public class TestDoublyLinkedList
     {
 	final DoublyLinkedList<Integer> list = new DoublyLinkedList<Integer>();
 
-	final DoublyLinkedList<Integer>.Node node1 = list.addLast(Integer.valueOf(3));
-	final DoublyLinkedList<Integer>.Node node2 = list.addLast(Integer.valueOf(4));
+	final BiNode<Integer> node1 = list.addLast(Integer.valueOf(3));
+	final BiNode<Integer> node2 = list.addLast(Integer.valueOf(4));
 
 	assertNotNull(node1);
 	assertNotNull(node2);

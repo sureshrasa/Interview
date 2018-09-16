@@ -7,7 +7,7 @@ import javafx.util.Pair;
 
 public class LRUCache<K, V>
 {
-    private Map<K, DoublyLinkedList<Pair<K, V>>.Node> map = new HashMap<>();
+    private Map<K, BiNode<Pair<K, V>>> map = new HashMap<>();
     private DoublyLinkedList<Pair<K, V>> values = new DoublyLinkedList<>();
 
     private final int capacity;
@@ -29,7 +29,7 @@ public class LRUCache<K, V>
 
     public void put(final K key, final V value)
     {
-	final DoublyLinkedList<Pair<K, V>>.Node prevNode = map.get(key);
+	final BiNode<Pair<K, V>> prevNode = map.get(key);
 	if (prevNode != null)
 	{
 	    prevNode.setValue(new Pair<>(key, value));
@@ -39,7 +39,7 @@ public class LRUCache<K, V>
 	    map.put(key, values.addFirst(new Pair<>(key, value)));
 	    if (map.size() > capacity)
 	    {
-		final DoublyLinkedList<Pair<K, V>>.Node last = values.getLast();
+		final BiNode<Pair<K, V>> last = values.getLast();
 		map.remove(last.getValue().getKey());
 		last.remove();
 	    }
@@ -48,7 +48,7 @@ public class LRUCache<K, V>
 
     public V get(final K key)
     {
-	final DoublyLinkedList<Pair<K, V>>.Node node = map.get(key);
+	final BiNode<Pair<K, V>> node = map.get(key);
 
 	if (node == null)
 	    return null;

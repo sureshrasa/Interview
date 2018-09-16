@@ -4,101 +4,47 @@ import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<T>
 {
-    private final Node nodes;
-
-    public class Node
-    {
-	Node prev;
-	Node next;
-
-	private T value;
-
-	public Node(final T value)
-	{
-	    this.value = value;
-	    prev = next = this;
-	}
-
-	public T getValue()
-	{
-	    return value;
-	}
-
-	public void setValue(final T value)
-	{
-	    this.value = value;
-	}
-
-	public void remove()
-	{
-	    prev.next = next;
-	    next.prev = prev;
-
-	    next = prev = this;
-	}
-
-	public void insertAfter(final Node node)
-	{
-	    remove();
-
-	    next = node.next;
-	    prev = node;
-
-	    next.prev = this;
-	    node.next = this;
-	}
-
-	public void insertBefore(final Node node)
-	{
-	    remove();
-
-	    prev = node.prev;
-	    next = node;
-
-	    prev.next = this;
-	    node.prev = this;
-	}
-    }
+    private final BiNode<T> nodes;
 
     public DoublyLinkedList()
     {
-	nodes = new Node(null);
+	nodes = new BiNode<T>(null);
     }
 
     public boolean isEmpty()
     {
-	return nodes.prev == nodes;
+	return nodes.prev() == nodes;
     }
 
-    public Node addFirst(final T value)
+    public BiNode<T> addFirst(final T value)
     {
-	Node result = new Node(value);
+	BiNode<T> result = new BiNode<T>(value);
 
 	result.insertAfter(nodes);
 
 	return result;
     }
 
-    public Node addLast(final T value)
+    public BiNode<T> addLast(final T value)
     {
-	Node result = new Node(value);
+	BiNode<T> result = new BiNode<T>(value);
 
 	result.insertBefore(nodes);
 
 	return result;
     }
 
-    public Node getFirst()
+    public BiNode<T> getFirst()
     {
 	if (isEmpty())
 	    throw new NoSuchElementException("DoublyLinkedList::getFirst");
-	return nodes.next;
+	return nodes.next();
     }
 
-    public Node getLast()
+    public BiNode<T> getLast()
     {
 	if (isEmpty())
 	    throw new NoSuchElementException("DoublyLinkedList::getLast");
-	return nodes.prev;
+	return nodes.prev();
     }
 }
