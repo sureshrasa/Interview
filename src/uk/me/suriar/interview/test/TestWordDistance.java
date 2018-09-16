@@ -36,5 +36,8 @@ public class TestWordDistance
     public void testMany()
     {
 	assertEquals(0, new WordDistance().find("hello", "world", new String[] {"hello", "cruel", "world", "hello", "friend"}));
+	assertEquals(0, new WordDistance().find("cruel", "world", new String[] {"hello", "cruel", "world", "cruel", "dear", "friend"}));
+	assertEquals(0, new WordDistance().find("cruel", "world", new String[] {"hello", "cruel", "cold", "world", "cruel", "dear", "friend", "world"}));
+	assertEquals(0, new WordDistance().find("a", "b", new String[] {"b", "b", "a", "b", "a", "a", "b", "a", "c", "a"}));
     }
 }

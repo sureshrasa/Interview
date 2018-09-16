@@ -25,13 +25,34 @@ public class WordDistance
 
     private int minDistance(final List<Integer> aPositions, final List<Integer> bPositions)
     {
-	if (aPositions == null || bPositions == null)
+	if (aPositions == null || aPositions.isEmpty() || bPositions == null || bPositions.isEmpty())
 	    return -1;
 
-	final Comparator<Integer> intComparator = Comparator.naturalOrder();
+	return (aPositions.size() < bPositions.size())
+		? findMinDistance(aPositions, bPositions) : findMinDistance(bPositions, aPositions);
+    }
 
-	return aPositions.stream().map(aPos -> bPositions.stream().map(bPos -> Math.abs(aPos - bPos)-1
-		).min(intComparator).get()).min(intComparator).get();
+    private int findMinDistance(final List<Integer> aPositions, final List<Integer> bPositions)
+    {
+	int currMinDistance = Integer.MAX_VALUE;
+	int minDistance = Integer.MAX_VALUE;
+	int aPos = 0;
+	int bPos = 0;
+	while (aPos < aPositions.size() && bPos < bPositions.size())
+	{
+	    final int distance = Math.abs(aPositions.get(aPos) - bPositions.get(bPos));
+	    if (distance < currMinDistance)
+	    {
+		currMinDistance = distance;
+		++bPos;
+	    } else
+	    {
+		minDistance = Math.min(minDistance, currMinDistance);
+		currMinDistance = Integer.MAX_VALUE;
+		++aPos;
+	    }
+	}
+	return Math.min(minDistance, currMinDistance) - 1;
     }
 
     private void registerWords(final String[] words)
